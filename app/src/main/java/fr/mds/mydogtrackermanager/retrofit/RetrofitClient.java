@@ -12,7 +12,7 @@ public class RetrofitClient {
 
         if (dogTrackerService == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("YOURURL")
+                    .baseUrl(DogTrackerService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             dogTrackerService = retrofit.create(DogTrackerService.class);

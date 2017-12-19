@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.mds.mydogtrackermanager.R;
-import fr.mds.mydogtrackermanager.retrofit.DataContainer;
+import fr.mds.mydogtrackermanager.retrofit.BasicAnswer;
+import fr.mds.mydogtrackermanager.retrofit.DogTrackerService;
+import fr.mds.mydogtrackermanager.retrofit.Positions;
+import fr.mds.mydogtrackermanager.retrofit.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LauncherActivity extends AppCompatActivity implements Callback<DataContainer> {
+public class LauncherActivity extends AppCompatActivity implements Callback<BasicAnswer> {
 
     EditText et_email, et_password;
     Button btn_login, btn_register;
@@ -38,15 +42,27 @@ public class LauncherActivity extends AppCompatActivity implements Callback<Data
         setLogin();
         setRegister();
         setForgetPass();
+
+        RetrofitClient.getService().add_spy("test").enqueue(new Callback<BasicAnswer>() {
+            @Override
+            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
+                Log.i("TEST", "Success");
+            }
+
+            @Override
+            public void onFailure(Call<BasicAnswer> call, Throwable t) {
+                Log.i("TEST", "Fail");
+            }
+        });
     }
 
     @Override
-    public void onResponse(Call<DataContainer> call, Response<DataContainer> response) {
+    public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
 
     }
 
     @Override
-    public void onFailure(Call<DataContainer> call, Throwable t) {
+    public void onFailure(Call<BasicAnswer> call, Throwable t) {
 
     }
 
