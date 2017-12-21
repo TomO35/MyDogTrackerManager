@@ -13,8 +13,6 @@ import fr.mds.mydogtrackermanager.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

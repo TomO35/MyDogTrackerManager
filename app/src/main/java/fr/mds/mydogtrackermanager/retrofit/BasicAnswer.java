@@ -4,8 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class BasicAnswer {
 
-    @SerializedName("keyInsideJSON")
-    private String myJsonValue;
+    @SerializedName("response")
+    private String myAnswer;
 
-    //getter setter
+    public String getMyAnswer() {
+        return myAnswer;
+    }
+
+    public void setMyAnswer(String myAnswer) {
+        this.myAnswer = myAnswer;
+    }
 }

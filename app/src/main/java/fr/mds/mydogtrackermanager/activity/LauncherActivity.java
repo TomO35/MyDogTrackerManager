@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LauncherActivity extends AppCompatActivity implements Callback<BasicAnswer> {
+public class LauncherActivity extends AppCompatActivity {
 
     EditText et_email, et_password;
     Button btn_login, btn_register;
@@ -43,27 +43,18 @@ public class LauncherActivity extends AppCompatActivity implements Callback<Basi
         setRegister();
         setForgetPass();
 
-        RetrofitClient.getService().add_spy("test").enqueue(new Callback<BasicAnswer>() {
+        // TEST RETROFIT a l'allumage de l'application
+        RetrofitClient.getService().add_spy("blabla").enqueue(new Callback<BasicAnswer>() {
             @Override
             public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
-                Log.i("TEST", "Success");
+                Log.i("TEST-NEWSPY", "Success");
             }
 
             @Override
             public void onFailure(Call<BasicAnswer> call, Throwable t) {
-                Log.i("TEST", "Fail");
+                Log.i("TEST-NEWSPY", "Fail");
             }
         });
-    }
-
-    @Override
-    public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<BasicAnswer> call, Throwable t) {
-
     }
 
     public void setLogin(){
@@ -72,13 +63,20 @@ public class LauncherActivity extends AppCompatActivity implements Callback<Basi
             public void onClick(View view) {
                 if (et_email.getText() != null && !et_email.getText().equals("")){
                     if (et_password.getText() != null && !et_password.getText().equals("")){
-                        pass = true;//TODO Webserv check password
-                        if (pass == true) {
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(LauncherActivity.this, R.string.wronglogs, Toast.LENGTH_SHORT).show();
-                        }
+                        RetrofitClient.getService().checkPassword(et_email.getText().toString(), et_password.getText().toString()).enqueue(new Callback<BasicAnswer>() {
+                            @Override
+                            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
+                                Log.i("TEST-LOGS", "Success");
+                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i);
+                            }
+
+                            @Override
+                            public void onFailure(Call<BasicAnswer> call, Throwable t) {
+                                Log.i("TEST-LOGS", "Fail");
+                                Toast.makeText(LauncherActivity.this, R.string.wronglogs, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
                         Toast.makeText(LauncherActivity.this, R.string.nopass, Toast.LENGTH_SHORT).show();
                     }

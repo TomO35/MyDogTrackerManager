@@ -5,6 +5,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface DogTrackerService {
 
@@ -18,9 +19,8 @@ public interface DogTrackerService {
     @FormUrlEncoded
     Call<BasicAnswer> add_position(@Field("spy_id") String spyId, @Field("longitude") String longitude, @Field("latitude") String latitude);
 
-    @POST("ws.php?action=add_spy")
-    @FormUrlEncoded
-    Call<BasicAnswer> add_spy(@Field("spy_name") String spy_name);
+    @GET("ws.php?action=add_spy")
+    Call<BasicAnswer> add_spy(@Query("spy") String spy_name);
 
     @POST("ws.php?action=remove_spy")
     @FormUrlEncoded
