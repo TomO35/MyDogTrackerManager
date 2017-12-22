@@ -11,17 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import fr.mds.mydogtrackermanager.R;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import fr.mds.mydogtrackermanager.http.HttpGetRequest;
 
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends AppCompatActivity  {
 
     EditText et_email, et_password;
     Button btn_login, btn_register;
@@ -50,6 +45,7 @@ public class LauncherActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (et_email.getText() != null && !et_email.getText().equals("")){
                     if (et_password.getText() != null && !et_password.getText().equals("")){
+                        // FIRST TRY CALLING WEBSERVICE USING RETROFIT //
 //                        RetrofitClient.getService().checkPassword(et_email.getText().toString(), et_password.getText().toString()).enqueue(new Callback<BasicAnswer>() {
 //                            @Override
 //                            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
@@ -64,11 +60,19 @@ public class LauncherActivity extends AppCompatActivity {
 //                                Toast.makeText(LauncherActivity.this, R.string.wronglogs, Toast.LENGTH_SHORT).show();
 //                            }
 //                        });
-                        try {
-                            run("http://dogtracker.epizy.com/ws.php?action=check_password&user_email="+et_email.getText().toString() +"&password="+et_password.getText().toString());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        // SECOND TRY USING A SIMPLE ASYNCTASK CLASS //
+//                        String myUrl = "http://dogtracker.epizy.com/ws.php?action=add_spy";
+//                        String result;
+//                        HttpGetRequest getRequest = new HttpGetRequest();
+//                        try {
+//                            result = getRequest.execute(myUrl).get();
+//                            Log.e("SUCCESS",result);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        } catch (ExecutionException e) {
+//                            e.printStackTrace();
+//                        }
+                        // We think that dogtracker.epizy.com don't allow non-browsers to hit their free service... //
                     } else {
                         Toast.makeText(LauncherActivity.this, R.string.nopass, Toast.LENGTH_SHORT).show();
                     }
@@ -98,31 +102,7 @@ public class LauncherActivity extends AppCompatActivity {
         });
     }
 
-    private final OkHttpClient client = new OkHttpClient();
 
-    public void run(String url) throws Exception {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
-                Log.e("FAILURE","FAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILURE");
-                e.printStackTrace();
-            }
-
-            @Override public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                Log.e("SUCCESS","SUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESS");
-                Log.e("RESPOSNE",response.headers().toString());
-                Headers responseHeaders = response.headers();
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    Log.e(responseHeaders.name(i) , responseHeaders.value(i));
-                }
-
-                Log.e("response",response.body().string());
-            }
-        });
-    }
 
 
 }

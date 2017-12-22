@@ -1,6 +1,7 @@
 package fr.mds.mydogtrackermanager.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,11 @@ public class MapsFragment extends MyFragment implements OnMapReadyCallback {
                 googleMap = mMap;
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                LatLng rennes = new LatLng(48.11, -1.67);
+                googleMap.addMarker(new MarkerOptions().position(rennes).title("Rennes").snippet("test"));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(rennes).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
@@ -69,8 +70,8 @@ public class MapsFragment extends MyFragment implements OnMapReadyCallback {
         googleMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng rennes = new LatLng(48.11, -1.67);
+        googleMap.addMarker(new MarkerOptions().position(rennes).title("Marker in Rennes"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(rennes));
     }
 }
