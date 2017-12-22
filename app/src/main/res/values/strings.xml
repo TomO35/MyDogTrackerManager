@@ -28,6 +28,7 @@
     <string name="errorbdd">An error has occurred, please retry later !</string>
 
     // List Activity
+    <string name="addSpy">Add a spy</string>
 
 
     // Map Activity

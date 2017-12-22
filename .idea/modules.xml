@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyDogTrackerManager.iml" filepath="$PROJECT_DIR$/MyDogTrackerManager.iml" />
-      <module fileurl="file://C:\Users\Florentin\Desktop\MyDogTrackerManager\MyDogTrackerManager.iml" filepath="C:\Users\Florentin\Desktop\MyDogTrackerManager\MyDogTrackerManager.iml" />
-      <module fileurl="file://C:\Users\user\AndroidStudioProjects\MyDogTrackerManager\.idea\MyDogTrackerManager.iml" filepath="C:\Users\user\AndroidStudioProjects\MyDogTrackerManager\.idea\MyDogTrackerManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Florentin\Desktop\MyDogTrackerManager\app\app.iml" filepath="C:\Users\Florentin\Desktop\MyDogTrackerManager\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -18,7 +18,7 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:text="@string/name"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="parent" />

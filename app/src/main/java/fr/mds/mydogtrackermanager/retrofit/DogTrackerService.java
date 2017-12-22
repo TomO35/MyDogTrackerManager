@@ -19,9 +19,6 @@ public interface DogTrackerService {
     @FormUrlEncoded
     Call<BasicAnswer> add_position(@Field("spy_id") String spyId, @Field("longitude") String longitude, @Field("latitude") String latitude);
 
-    @GET("ws.php?action=add_spy")
-    Call<BasicAnswer> add_spy(@Query("spy") String spy_name);
-
     @POST("ws.php?action=remove_spy")
     @FormUrlEncoded
     Call<BasicAnswer> remove_spy(@Field("spy_name") String spy_name);
@@ -33,6 +30,10 @@ public interface DogTrackerService {
     @POST("ws.php?action=update_name_spy")
     @FormUrlEncoded
     Call<BasicAnswer> update_name_spy(@Field("spy_id") String spy_id, @Field("spy_name") String spy_name);
+
+    @POST("ws.php?action=link_spy")
+    @FormUrlEncoded
+    Call<BasicAnswer> link_spy(@Field("spy_id") String spy_id, @Field("user_id") String user_id);
 
     @GET("ws.php?action=retrieve_last_pos_spies")
     Call<Positions> retrieve_last_pos_spies(@Field("user_id") String user_id);

@@ -31,7 +31,6 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        getSupportActionBar().hide();
 
         et_email = findViewById(R.id.et_log_email);
         et_password = findViewById(R.id.et_password);
@@ -42,19 +41,6 @@ public class LauncherActivity extends AppCompatActivity {
         setLogin();
         setRegister();
         setForgetPass();
-
-        // TEST RETROFIT a l'allumage de l'application
-        RetrofitClient.getService().add_spy("blabla").enqueue(new Callback<BasicAnswer>() {
-            @Override
-            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
-                Log.i("TEST-NEWSPY", "Success");
-            }
-
-            @Override
-            public void onFailure(Call<BasicAnswer> call, Throwable t) {
-                Log.i("TEST-NEWSPY", "Fail");
-            }
-        });
     }
 
     public void setLogin(){
@@ -101,7 +87,6 @@ public class LauncherActivity extends AppCompatActivity {
         tv_forget_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO send password to e-mail (Material Dialog)
                 Toast.makeText(LauncherActivity.this, R.string.emailsent, Toast.LENGTH_SHORT).show();
             }
         });

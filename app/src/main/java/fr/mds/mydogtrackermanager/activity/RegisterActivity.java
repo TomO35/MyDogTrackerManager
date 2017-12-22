@@ -48,22 +48,25 @@ public class RegisterActivity extends AppCompatActivity {
                 password = et_password.getText().toString();
                 email = et_email.getText().toString();
 
-                if(password.equals(et_passConf.getText().toString())){
-                    RetrofitClient.getService().add_user(name, firstname, password, email).enqueue(new Callback<BasicAnswer>() {
-                        @Override
-                        public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
-                            Log.i("TEST-LOGS", "Success");
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(i);
-                        }
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
 
-                        @Override
-                        public void onFailure(Call<BasicAnswer> call, Throwable t) {
-                            Log.i("TEST-LOGS", "Fail");
-                            Toast.makeText(RegisterActivity.this, R.string.errorbdd, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+//                if(password.equals(et_passConf.getText().toString())){
+//                    RetrofitClient.getService().add_user(name, firstname, password, email).enqueue(new Callback<BasicAnswer>() {
+//                        @Override
+//                        public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
+//                            Log.i("TEST-LOGS", "Success");
+//                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(i);
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<BasicAnswer> call, Throwable t) {
+//                            Log.i("TEST-LOGS", "Fail");
+//                            Toast.makeText(RegisterActivity.this, R.string.errorbdd, Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
 
             }
         });
