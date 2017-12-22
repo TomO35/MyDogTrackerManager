@@ -10,15 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.io.IOException;
 
 import fr.mds.mydogtrackermanager.R;
-import fr.mds.mydogtrackermanager.retrofit.BasicAnswer;
-import fr.mds.mydogtrackermanager.retrofit.DogTrackerService;
-import fr.mds.mydogtrackermanager.retrofit.Positions;
-import fr.mds.mydogtrackermanager.retrofit.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -49,20 +49,25 @@ public class LauncherActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (et_email.getText() != null && !et_email.getText().equals("")){
                     if (et_password.getText() != null && !et_password.getText().equals("")){
-                        RetrofitClient.getService().checkPassword(et_email.getText().toString(), et_password.getText().toString()).enqueue(new Callback<BasicAnswer>() {
-                            @Override
-                            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
-                                Log.i("TEST-LOGS", "Success");
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
-                            }
-
-                            @Override
-                            public void onFailure(Call<BasicAnswer> call, Throwable t) {
-                                Log.i("TEST-LOGS", "Fail");
-                                Toast.makeText(LauncherActivity.this, R.string.wronglogs, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                        RetrofitClient.getService().checkPassword(et_email.getText().toString(), et_password.getText().toString()).enqueue(new Callback<BasicAnswer>() {
+//                            @Override
+//                            public void onResponse(Call<BasicAnswer> call, Response<BasicAnswer> response) {
+//                                Log.i("TEST-LOGS", "Success");
+//                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                                startActivity(i);
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<BasicAnswer> call, Throwable t) {
+//                                Log.i("TEST-LOGS", "Fail");
+//                                Toast.makeText(LauncherActivity.this, R.string.wronglogs, Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+                        try {
+                            run("http://dogtracker.epizy.com/ws.php?action=check_password&user_email="+et_email.getText().toString() +"&password="+et_password.getText().toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Toast.makeText(LauncherActivity.this, R.string.nopass, Toast.LENGTH_SHORT).show();
                     }
@@ -91,4 +96,30 @@ public class LauncherActivity extends AppCompatActivity {
             }
         });
     }
+
+    private final OkHttpClient client = new OkHttpClient();
+
+    public void run(String url) throws Exception {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                    Log.e(responseHeaders.name(i) , responseHeaders.value(i));
+                }
+
+                Log.e("response",response.body().string());
+            }
+        });
+    }
+
+
 }
