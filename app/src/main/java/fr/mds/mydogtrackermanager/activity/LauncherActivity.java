@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 
 import fr.mds.mydogtrackermanager.R;
@@ -105,12 +106,14 @@ public class LauncherActivity extends AppCompatActivity {
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException e) {
+                Log.e("FAILURE","FAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILUREFAILURE");
                 e.printStackTrace();
             }
 
             @Override public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
+                Log.e("SUCCESS","SUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESSSUCCESS");
+                Log.e("RESPOSNE",response.headers().toString());
                 Headers responseHeaders = response.headers();
                 for (int i = 0, size = responseHeaders.size(); i < size; i++) {
                     Log.e(responseHeaders.name(i) , responseHeaders.value(i));
