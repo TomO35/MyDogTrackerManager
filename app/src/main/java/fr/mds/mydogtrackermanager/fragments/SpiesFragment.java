@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.mds.mydogtrackermanager.R;
-import fr.mds.mydogtrackermanager.tools.MyFragment;
 
 public class SpiesFragment extends MyFragment {
 

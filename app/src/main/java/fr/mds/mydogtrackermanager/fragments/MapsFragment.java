@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import fr.mds.mydogtrackermanager.R;
-import fr.mds.mydogtrackermanager.tools.MyFragment;
 
 public class MapsFragment extends MyFragment implements OnMapReadyCallback {
 
@@ -27,7 +26,7 @@ public class MapsFragment extends MyFragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        mMapView = rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
